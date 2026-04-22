@@ -19,6 +19,10 @@ import {
   Sparkles,
   Network,
   Smartphone,
+  Quote,
+  Facebook,
+  Twitter,
+  Linkedin,
   type LucideIcon
 } from 'lucide-react';
 
@@ -414,38 +418,146 @@ const Teacher = () => (
   </section>
 );
 
-const CTA = () => (
-  <section className="py-20 md:py-32 bg-[#15191c] relative overflow-hidden">
-    <div className="absolute inset-0 opacity-5">
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#d4ff00_1px,transparent_1px)] [background-size:40px_40px]" />
-    </div>
-    
-    <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-      <div className="flex flex-col items-center gap-6 md:gap-10">
-        <p className="text-[#d4ff00] font-black tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs uppercase bg-[#d4ff00]/10 px-4 md:px-6 py-2 rounded-full">
-          Richiedi ora la verifica dei requisiti GOL
-        </p>
+const Testimonials = () => {
+  const testimonials = [
+    {
+      name: "Marco R.",
+      role: "Content Creator",
+      photo: "https://i.pravatar.cc/150?img=11",
+      quote: "Corso eccezionale! Ho imparato a ottimizzare i miei flussi di lavoro con l'AI raddoppiando la mia produttività. Corrado è un docente straordinario."
+    },
+    {
+      name: "Elena F.",
+      role: "Social Media Manager",
+      photo: "https://i.pravatar.cc/150?img=5",
+      quote: "Finalmente un percorso pratico e concreto. Le tecniche di Advanced Prompting e la generazione video mi hanno permesso di ampliare i servizi per la mia agenzia."
+    },
+    {
+      name: "Luca B.",
+      role: "Video Maker",
+      photo: "https://i.pravatar.cc/150?img=12",
+      quote: "L'approccio a ComfyUI e la parte pratica mi hanno aperto un mondo. Mai visto un programma così completo e aggiornato sulle ultime release dei modelli AI."
+    }
+  ];
+
+  return (
+    <section className="py-20 md:py-32 bg-[#1c2125] border-y border-white/5">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">
+            COSA DICONO I <span className="text-[#d4ff00]">PARTECIPANTI</span>
+          </h2>
+          <p className="text-white/40 text-lg font-medium">Storie di successo da chi ha già partecipato ai nostri corsi.</p>
+        </div>
         
-        <motion.a 
-          href="https://api.leadconnectorhq.com/widget/form/6JTRXjB5riLah1CoOkWJ" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          whileHover={{ 
-            scale: 1.05, 
-            boxShadow: `0 0 50px ${COLOR_ACID}88`,
-            backgroundColor: COLOR_ACID,
-            color: '#000'
-          }}
-          whileTap={{ scale: 0.98 }}
-          className="group relative inline-flex items-center gap-4 md:gap-6 bg-white text-black px-8 md:px-14 py-5 md:py-7 rounded-xl md:rounded-[2rem] font-black text-lg md:text-3xl transition-all shadow-2xl text-center"
-        >
-          <span className="leading-tight">CONTATTACI PER MAGGIORI INFORMAZIONI</span>
-          <ExternalLink className="w-5 h-5 md:w-8 md:h-8 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0" />
-        </motion.a>
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          {testimonials.map((t, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-[#15191c] p-6 md:p-8 rounded-2xl md:rounded-3xl border border-white/5 relative group hover:border-[#d4ff00]/30 transition-colors"
+            >
+              <Quote className="absolute top-6 right-6 w-10 h-10 text-[#d4ff00] opacity-10 group-hover:opacity-20 transition-opacity" />
+              <p className="text-white/80 text-base md:text-lg leading-relaxed mb-8 relative z-10 font-medium">
+                "{t.quote}"
+              </p>
+              <div className="flex items-center gap-4">
+                <img 
+                  src={t.photo} 
+                  alt={t.name} 
+                  className="w-12 h-12 rounded-full border-2 border-white/10"
+                  referrerPolicy="no-referrer"
+                />
+                <div>
+                  <h4 className="text-white font-black text-sm uppercase tracking-widest">{t.name}</h4>
+                  <p className="text-[#d4ff00] text-[10px] font-bold uppercase tracking-[0.2em]">{t.role}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
+
+const CTA = () => {
+  const shareUrl = encodeURIComponent("https://atomaaiexpertcontencreator.vercel.app/");
+  const shareText = encodeURIComponent("Diventa un Tecnico della Produzione Multimediale e AI Content Creation con questo corso GOL Gratuito di 100 ore! 🚀");
+  
+  return (
+    <section className="py-20 md:py-32 bg-[#15191c] relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#d4ff00_1px,transparent_1px)] [background-size:40px_40px]" />
+      </div>
+      
+      <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+        <div className="flex flex-col items-center gap-6 md:gap-10">
+          <p className="text-[#d4ff00] font-black tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs uppercase bg-[#d4ff00]/10 px-4 md:px-6 py-2 rounded-full">
+            Richiedi ora la verifica dei requisiti GOL
+          </p>
+          
+          <motion.a 
+            href="https://api.leadconnectorhq.com/widget/form/6JTRXjB5riLah1CoOkWJ" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            whileHover={{ 
+              scale: 1.05, 
+              boxShadow: `0 0 50px ${COLOR_ACID}88`,
+              backgroundColor: COLOR_ACID,
+              color: '#000'
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="group relative inline-flex items-center gap-4 md:gap-6 bg-white text-black px-8 md:px-14 py-5 md:py-7 rounded-xl md:rounded-[2rem] font-black text-lg md:text-3xl transition-all shadow-2xl text-center"
+          >
+            <span className="leading-tight">CONTATTACI PER MAGGIORI INFORMAZIONI</span>
+            <ExternalLink className="w-5 h-5 md:w-8 md:h-8 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0" />
+          </motion.a>
+
+          {/* Social Social */}
+          <div className="mt-8 flex flex-col items-center gap-4">
+            <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Condividi questa opportunità</span>
+            <div className="flex items-center gap-4">
+              <motion.a 
+                whileHover={{ scale: 1.1, backgroundColor: '#1877F2' }}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white transition-colors"
+                title="Condividi su Facebook"
+              >
+                <Facebook size={18} />
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.1, backgroundColor: '#1DA1F2' }}
+                href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white transition-colors"
+                title="Condividi su Twitter (X)"
+              >
+                <Twitter size={18} />
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.1, backgroundColor: '#0A66C2' }}
+                href={`https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white transition-colors"
+                title="Condividi su LinkedIn"
+              >
+                <Linkedin size={18} />
+              </motion.a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const Footer = () => (
   <footer className="bg-[#0e1113] py-12 md:py-16 border-t border-white/5">
@@ -519,6 +631,7 @@ export default function App() {
 
         <Program />
         <Teacher />
+        <Testimonials />
         <CTA />
       </main>
       <Footer />
