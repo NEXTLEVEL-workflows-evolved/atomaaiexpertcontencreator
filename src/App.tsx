@@ -50,7 +50,7 @@ interface HeroStat {
 // --- Constants ---
 const LOGO_ATOMA = "https://i.postimg.cc/kX1VSZR1/logo.png";
 const PHOTO_TEACHER = "https://i.postimg.cc/7YtZQ29Z/un-uomo-mezzo-202604141438.jpg";
-const PHOTO_HERO_UP = "https://i.postimg.cc/FKZQ6fXK/UP-PHOTO.png";
+const PHOTO_HERO_UP = "https://i.postimg.cc/KjMNrNTy/Up-Photo-low.jpg";
 const COLOR_ACID = "#d4ff00";
 
 // --- Components ---
