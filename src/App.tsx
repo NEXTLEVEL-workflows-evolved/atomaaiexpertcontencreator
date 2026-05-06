@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React from 'react';
 import { motion } from 'motion/react';
 import { 
   Brain, 
@@ -54,26 +55,30 @@ interface HeroStat {
 // --- Constants ---
 const LOGO_ATOMA = "https://i.postimg.cc/kX1VSZR1/logo.png";
 const PHOTO_TEACHER = "https://i.postimg.cc/7YtZQ29Z/un-uomo-mezzo-202604141438.jpg";
-const PHOTO_HERO_UP = "https://i.postimg.cc/KjMNrNTy/Up-Photo-low.jpg";
+const PHOTO_GOL_BANNER = "https://i.postimg.cc/wM9byj8T/Whats-App-Image-2026-05-06-at-11-28-55-(4).jpg";
 const COLOR_ACID = "#d4ff00";
+const COLOR_ATOMA_GREEN = "#2d5a27";
+const COLOR_BG = "rgb(25, 35, 28)";
 
 // --- Components ---
 
-const Navbar = () => (
-  <nav className="fixed top-0 w-full z-50 bg-[#15191c]/90 backdrop-blur-xl border-b border-white/5">
-    <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
-      <div className="flex items-center gap-3 md:gap-6">
+const Navbar = ({ onSwitch, isPaid }: { onSwitch: () => void, isPaid: boolean }) => (
+  <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-white/5" style={{ backgroundColor: `${COLOR_BG}E6` }}>
+    <div className="max-w-7xl mx-auto px-4 h-16 md:h-24 flex items-center justify-between">
+      <div className="flex items-center gap-3 md:gap-5">
         <motion.a 
           href="https://www.atoma.com/"
           whileHover={{ opacity: 0.8 }}
-          className="h-8 md:h-10 bg-white/10 backdrop-blur-sm rounded-lg px-2 md:px-3 py-1 flex items-center"
+          className="h-9 md:h-12 border border-white/5 rounded-xl px-2 md:px-4 py-1 flex items-center shadow-inner"
+          style={{ backgroundColor: COLOR_BG }}
         >
           <img src={LOGO_ATOMA} alt="ATOMA Logo" className="h-full object-contain" />
         </motion.a>
-        <div className="h-5 md:h-6 w-[1px] bg-white/10" />
+        <div className="h-6 md:h-8 w-[1px] bg-white/10" />
         <motion.div 
           whileHover={{ scale: 1.05 }}
-          className="text-lg md:text-2xl font-black tracking-tighter text-[#d4ff00] cursor-default whitespace-nowrap"
+          onClick={onSwitch}
+          className="text-xl md:text-3xl font-black tracking-tighter text-[#d4ff00] cursor-pointer whitespace-nowrap font-display uppercase italic"
         >
           NEXT.LEVEL
         </motion.div>
@@ -81,101 +86,107 @@ const Navbar = () => (
       <div className="hidden lg:flex items-center gap-8 text-[9px] font-bold text-white/50 uppercase tracking-[0.2em]">
         <a href="#programma" className="hover:text-[#d4ff00] transition-colors">Programma</a>
         <a href="#docente" className="hover:text-[#d4ff00] transition-colors">Docente</a>
-        <a href="#gol" className="hover:text-[#d4ff00] transition-colors">Progetto GOL</a>
+        {!isPaid && <a href="#gol" className="hover:text-[#d4ff00] transition-colors">Progetto GOL</a>}
       </div>
-      <motion.a 
-        href="https://api.leadconnectorhq.com/widget/form/6JTRXjB5riLah1CoOkWJ" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        whileHover={{ scale: 1.05, boxShadow: `0 0 20px ${COLOR_ACID}44` }}
-        whileTap={{ scale: 0.95 }}
-        className="bg-[#d4ff00] text-black px-4 md:px-8 py-2 rounded-full font-black text-[10px] md:text-xs tracking-widest hover:bg-white transition-all"
-      >
-        CONTATTACI
-      </motion.a>
+      <div className="flex items-center gap-4">
+        <motion.a 
+          href={isPaid ? "https://www.atoma.com/contatti/" : "https://api.leadconnectorhq.com/widget/form/6JTRXjB5riLah1CoOkWJ"} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.05, boxShadow: `0 0 20px ${COLOR_ACID}44` }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#d4ff00] text-black px-4 md:px-6 py-2 rounded-full font-black text-[10px] md:text-xs tracking-widest hover:bg-white transition-all"
+        >
+          {isPaid ? 'INFO ACQUISTO' : 'CONTATTACI'}
+        </motion.a>
+      </div>
     </div>
   </nav>
 );
 
-const Hero = () => (
-  <section className="relative pt-24 md:pt-32 pb-16 md:pb-24 overflow-hidden bg-[#15191c]">
+const Hero = ({ isPaid, onSwitch }: { isPaid: boolean, onSwitch: () => void }) => (
+  <section className="relative pt-32 md:pt-48 pb-20 md:pb-32 overflow-hidden" style={{ backgroundColor: COLOR_BG }}>
     <div className="absolute inset-0 pointer-events-none">
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-[#d4ff00]/10 blur-[160px] rounded-full" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-[#2d5a27]/10 blur-[160px] rounded-full" />
+      <div className="absolute top-[-10%] left-[-5%] w-[50%] h-[50%] bg-[#d4ff00]/5 blur-[120px] rounded-full" />
+      <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[50%] blur-[120px] rounded-full" style={{ backgroundColor: `${COLOR_ATOMA_GREEN}22` }} />
     </div>
     
-    <div className="max-w-5xl mx-auto px-4 relative z-10 text-center">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="mb-8 md:mb-12 inline-block relative"
-      >
-        <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#15191c] to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#15191c] to-transparent z-10" />
-        <img 
-          src={PHOTO_HERO_UP} 
-          alt="Course Intro" 
-          className="max-w-full h-auto rounded-2xl md:rounded-3xl shadow-2xl"
-          referrerPolicy="no-referrer"
-        />
-      </motion.div>
-
+    <div className="max-w-6xl mx-auto px-4 relative z-10 text-center">
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="space-y-10 md:space-y-16"
       >
-        <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1 md:py-1.5 rounded-full bg-[#d4ff00]/10 border border-[#d4ff00]/20 text-[#d4ff00] text-[8px] md:text-[10px] font-black tracking-[0.2em] uppercase mb-6 md:mb-8">
-          <Award size={12} className="md:w-[14px] md:h-[14px]" />
-          Programma GOL Regione Lombardia
-        </div>
-        
-        <p className="text-base md:text-xl lg:text-[22px] text-white/70 mb-10 md:mb-14 max-w-4xl mx-auto leading-relaxed font-medium px-4">
-          Tecnico della Produzione Multimediale e AI Content Creation.<br className="hidden md:block" />
-          Un percorso di 100 ore per dominare il ciclo di produzione digitale tramite&nbsp;AI.
-        </p>
-        
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-12 md:mb-16 max-w-4xl mx-auto">
+        <h1 className="text-5xl md:text-8xl lg:text-[110px] font-[900] text-white tracking-tighter leading-[0.85] font-display uppercase italic">
+          Expert AI <br />
+          <span className="text-[#d4ff00]">Content Creator</span>
+        </h1>
+
+        {!isPaid ? (
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#d4ff00]/10 border border-[#d4ff00]/20 text-[#d4ff00] text-[10px] font-black tracking-[0.2em] uppercase">
+                <Award size={14} />
+                Programma GOL Regione Lombardia
+              </div>
+              
+              <p className="text-lg md:text-xl text-white/70 leading-relaxed font-medium px-4">
+                L’iscrizione al nostro corso è <span className="text-[#d4ff00] font-black">GRATUITA</span> per i disoccupati domiciliati in Lombardia, grazie al finanziamento di <a href="https://www.regione.lombardia.it/istruzione-formazione-e-lavoro/gol-garanzia-di-occupabilita-dei-lavoratori/red-garanzia-occupabilita-lavoratori-ifl" target="_blank" rel="noopener noreferrer" className="font-bold text-[#d4ff00] border-b-2 border-[#d4ff00] hover:bg-[#d4ff00]/10 transition-colors px-1">Garanzia Occupabilità Lavoratori</a>. Il programma GOL ha l’obiettivo di aumentare le opportunità dei cittadini di trovare lavoro, con un’offerta di servizi gratuiti per la riqualificazione professionale e il reinserimento lavorativo.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 space-y-6">
+              <p className="text-xl md:text-2xl font-black text-white tracking-tight">
+                Se non hai questi requisiti, non ti preoccupare abbiamo una soluzione altrettanto vantaggiosa
+              </p>
+              <button 
+                onClick={onSwitch}
+                className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-2xl font-black text-base hover:bg-[#d4ff00] transition-all"
+              >
+                SCOPRI LA VERSIONE PRIVATA
+                <ArrowRight size={20} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="p-8 rounded-3xl bg-[#d4ff00]/5 border border-[#d4ff00]/20">
+              <p className="text-lg md:text-2xl text-white/80 leading-relaxed font-medium">
+                Corso d'eccellenza al prezzo di <span className="text-[#d4ff00] font-black underline">2.000 euro</span>, con possibilità di <span className="text-[#d4ff00] font-black underline">RIMBORSO</span>.<br/>
+                <span className="text-white font-bold">Tu pensa a contattarci e la soluzione adatta a te la troviamo noi.</span>
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-center gap-4">
+              <motion.a 
+                href="https://www.atoma.com/contatti/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${COLOR_ACID}66` }}
+                className="bg-[#d4ff00] text-black px-12 py-5 rounded-2xl font-black text-xl hover:bg-white transition-all shadow-xl"
+              >
+                RICHIEDI INFO ACQUISTO
+              </motion.a>
+              <button onClick={onSwitch} className="text-white/40 text-xs font-bold uppercase tracking-widest hover:text-[#d4ff00] transition-colors">
+                TORNA AL PROGRAMMA GOL GRATUITO
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
           {( [
-            { label: "Durata", val: "100 Ore" },
+            { label: "Durata", val: isPaid ? "40 Ore" : "100 Ore" },
             { label: "Modalità", val: "FAD Sincrona" },
-            { label: "Qualifica", val: "Tecnico Prod. Multi." },
-            { label: "Costo", val: "Gratuito", color: COLOR_ACID }
+            { label: "Qualifica", val: isPaid ? "Attestato Privato" : "Tecnico Prod. Multi." },
+            { label: "Costo", val: isPaid ? "€ 2.000" : "Gratuito", color: COLOR_ACID }
           ] as HeroStat[]).map((item, i) => (
-            <div key={i} className="flex flex-col items-center gap-1 md:gap-2 p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/5 border border-white/5">
-              <span className="text-white/40 text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em]">{item.label}</span>
+            <div key={i} className="flex flex-col items-center gap-1 md:gap-2 p-4 rounded-2xl bg-white/5 border border-white/5">
+              <span className="text-white/40 text-[9px] font-black uppercase tracking-[0.2em]">{item.label}</span>
               <span className="text-white font-bold text-base md:text-lg" style={{ color: item.color }}>{item.val}</span>
             </div>
           ))}
-        </div>
-
-        <div className="flex flex-col items-center gap-6 md:gap-8">
-          <motion.a 
-            href="https://api.leadconnectorhq.com/widget/form/6JTRXjB5riLah1CoOkWJ" 
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${COLOR_ACID}66` }}
-            className="group relative inline-flex items-center gap-3 md:gap-4 bg-[#d4ff00] text-black px-8 md:px-12 py-4 md:py-5 rounded-xl md:rounded-2xl font-black text-lg md:text-xl hover:bg-white transition-all overflow-hidden shadow-xl"
-          >
-            <span>ISCRIVITI ORA</span>
-            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
-          
-          <div className="flex items-center gap-3 md:gap-4 px-4 md:px-6 py-2 md:py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-            <div className="flex -space-x-2 md:-space-x-3">
-              {[1, 2, 3, 4].map(i => (
-                <img 
-                  key={i}
-                  src={`https://picsum.photos/seed/user${i}/100/100`} 
-                  className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-[#15191c] grayscale hover:grayscale-0 transition-all" 
-                  alt="User"
-                  referrerPolicy="no-referrer"
-                />
-              ))}
-            </div>
-            <span className="text-[9px] md:text-xs text-white/50 font-bold uppercase tracking-widest">Posti limitati</span>
-          </div>
         </div>
       </motion.div>
     </div>
@@ -183,27 +194,14 @@ const Hero = () => (
 );
 
 const InstitutionalLogos = () => (
-  <div className="bg-white py-8 md:py-10 border-y border-black/5">
-    <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center items-center gap-8 md:gap-20">
-      <div className="flex flex-col items-center text-center">
-        <span className="text-[8px] md:text-[9px] font-black text-black/40 uppercase tracking-widest mb-2 md:mb-3">Finanziato da</span>
-        <div className="h-8 md:h-10 flex items-center gap-2 md:gap-3">
-          <div className="w-10 md:w-12 h-6 md:h-8 bg-blue-800 rounded-sm" />
-          <span className="text-[8px] md:text-[9px] font-bold leading-tight">Unione Europea<br/>NextGenerationEU</span>
-        </div>
-      </div>
-      <div className="flex flex-col items-center text-center">
-        <span className="text-[8px] md:text-[9px] font-black text-black/40 uppercase tracking-widest mb-2 md:mb-3">Promosso da</span>
-        <span className="text-lg md:text-xl font-black tracking-tighter text-[#2d5a27]">Regione Lombardia</span>
-      </div>
-      <div className="flex flex-col items-center text-center">
-        <span className="text-[8px] md:text-[9px] font-black text-black/40 uppercase tracking-widest mb-2 md:mb-3">In collaborazione con</span>
-        <span className="text-lg md:text-xl font-black tracking-tighter text-black">ANPAL</span>
-      </div>
-      <div className="flex flex-col items-center text-center">
-        <span className="text-[8px] md:text-[9px] font-black text-black/40 uppercase tracking-widest mb-2 md:mb-3">Programma</span>
-        <span className="text-lg md:text-xl font-black tracking-tighter text-blue-600">GOL</span>
-      </div>
+  <div className="bg-white py-12 md:py-20 border-y border-black/5">
+    <div className="max-w-7xl mx-auto px-4">
+      <img 
+        src={PHOTO_GOL_BANNER} 
+        alt="Partner Loghi" 
+        className="w-full h-auto object-contain max-h-[120px] md:max-h-none"
+        referrerPolicy="no-referrer"
+      />
     </div>
   </div>
 );
@@ -249,10 +247,12 @@ const ModuleCard = ({ number, title, content, image, icon: Icon }: ModuleCardPro
   </motion.div>
 );
 
-const Program = () => {
+const Program = ({ isPaid }: { isPaid: boolean }) => {
+  const getHours = (h: number) => isPaid ? Math.round(h / 2.5) : h;
+
   const modules: Module[] = [
     {
-      title: "Strategia, Storytelling e Agenti Proattivi (12 Ore)",
+      title: `Strategia, Storytelling e Agenti Proattivi (${getHours(12)} Ore)`,
       content: [
         "Configurazione Agenti: Creare agenti specializzati nella pianificazione editoriale",
         "Agentic Storytelling: Generazione di narrazioni e strategie di contenuto proattive",
@@ -262,7 +262,7 @@ const Program = () => {
       icon: Brain
     },
     {
-      title: "Visual Design e Advanced Prompting (12 Ore)",
+      title: `Visual Design e Advanced Prompting (${getHours(12)} Ore)`,
       content: [
         "Digital Shooting: Utilizzo di Nano Banana 2 per il compositing di base tra soggetti e sfondi",
         "Advanced Lighting Prompting: Studio della luce fisica applicata ai prompt per ottenere illuminazione fotorealistica",
@@ -272,7 +272,7 @@ const Program = () => {
       icon: Camera
     },
     {
-      title: "Generazione Multimodale e Automazione Cloud (12 Ore)",
+      title: `Generazione Multimodale e Automazione Cloud (${getHours(12)} Ore)`,
       content: [
         "Produzione Video 1.0: Trasformazione di script in video dinamici con Veo 3.1 e MetaAI",
         "Automazione Contenuti: Utilizzo di estensioni browser gratuite per automatizzare clip per Reel e TikTok",
@@ -282,7 +282,7 @@ const Program = () => {
       icon: Video
     },
     {
-      title: "ComfyUI – Architettura a Nodi e Workflow Avanzati (24 Ore)",
+      title: `ComfyUI – Architettura a Nodi e Workflow Avanzati (${getHours(24)} Ore)`,
       content: [
         "Workflow Ottimizzati: Installazione e gestione di flussi di lavoro a nodi già pronti per la produzione",
         "Fotorealismo Estremo: Utilizzo di FLUX dev + Lora per iniezione di texture cutanee reali",
@@ -293,7 +293,7 @@ const Program = () => {
       icon: Network
     },
     {
-      title: "Sound Design, Voice Cloning e AI Avatar (12 Ore)",
+      title: `Sound Design, Voice Cloning e AI Avatar (${getHours(12)} Ore)`,
       content: [
         "Sound Design: Creazione di colonne sonore originali e pulizia audio con IA",
         "Clonazione Vocale: Voice cloning per la creazione di speech con voci specifiche e personalizzate",
@@ -303,7 +303,7 @@ const Program = () => {
       icon: Music
     },
     {
-      title: "Creazione Influencer AI e Produzione UGC (16 Ore)",
+      title: `Creazione Influencer AI e Produzione UGC (${getHours(16)} Ore)`,
       content: [
         "Creazione Influencer: Sviluppo di modelli ultra-reali (espressioni, texture, illuminazione)",
         "Adattamento Ambientale: Inserimento coerente dei modelli digitali in ambienti reali o generati",
@@ -313,29 +313,29 @@ const Program = () => {
       icon: Smartphone
     },
     {
-      title: "Post-Produzione con DaVinci Resolve (12 Ore)",
+      title: `Post-Produzione con DaVinci Resolve (${getHours(12)} Ore)`,
       content: [
         "Struttura del Montaggio Professionale: Organizzazione media, timeline e gerarchia livelli video/audio",
         "Tecniche di Taglio e Assemblaggio & Editing Video con le funzioni principali della versione gratuita",
         "Color Correction & Visual Enhancement per uniformare gli asset prodotti dall'IA",
         "Mastering Audio e Finalizzazione: Pulizia sonora ed esportazione ottimizzata per i canali digitali"
       ],
-      image: "https://i.postimg.cc/mr7P84FJ/Student-smiling-in-202604221203.jpg",
+      image: "https://i.postimg.cc/KvDGdNyk/Ricrea-immagine-simile-a-image1-202605061858.jpg",
       icon: Film
     }
   ];
 
   return (
-    <section id="programma" className="py-20 md:py-32 bg-[#15191c]">
+    <section id="programma" className="py-20 md:py-32 border-t border-white/5" style={{ backgroundColor: COLOR_BG }}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 md:gap-12 mb-16 md:mb-24 border-b border-white/5 pb-12 md:pb-16">
           <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-4 md:mb-6">
+            <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-4 md:mb-6 uppercase">
               PROGRAMMA <br />
               <span className="text-[#d4ff00]">DIDATTICO</span>
             </h2>
-            <p className="text-white/40 text-lg md:text-xl font-medium">
-              Un percorso intensivo di 100 ore progettato per trasformarti in un professionista della produzione digitale con AI.
+            <p className="text-white/40 text-lg md:text-xl font-medium leading-relaxed">
+              Un percorso intensivo di {getHours(100)} ore progettato per trasformarti in un professionista della produzione digitale con AI.
             </p>
           </div>
           
@@ -350,11 +350,11 @@ const Program = () => {
             </div>
             <p className="text-black/80 font-bold text-base md:text-lg mb-6 md:mb-8 leading-snug">
               Il corso forma l' <span className="underline">Expert AI Content Creator</span>, figura specializzata nel dominio del ciclo di produzione digitale tramite AI. 
-              Il profilo è in grado di generare asset fotorealistici e video ADV ad alto impatto, delegando all'intelligenza artificiale il carico operativo e garantendo standard professionali tramite software di post-produzione cinematografica.
+              {isPaid ? " Un percorso d'elite progettato per professionisti che vogliono l'eccellenza senza compromessi." : " Il profilo è in grado di generare asset fotorealistici e video ADV ad alto impatto."}
             </p>
-            <div className="flex flex-wrap gap-2">
-              {["AI Expert", "Digital Production", "VFX & Cinema"].map(tag => (
-                <span key={tag} className="px-3 md:px-4 py-1 md:py-1.5 rounded-full bg-black text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest">
+            <div className="flex flex-wrap gap-2 text-black">
+              {["AI Expert", "Digital Production", "Professional"].map(tag => (
+                <span key={tag} className="px-3 md:px-4 py-1.5 rounded-full bg-black text-[#d4ff00] text-[8px] md:text-[10px] font-black uppercase tracking-widest">
                   {tag}
                 </span>
               ))}
@@ -484,12 +484,12 @@ const Testimonials = () => {
   );
 };
 
-const CTA = () => {
+const CTA = ({ isPaid, onSwitch }: { isPaid: boolean, onSwitch: () => void }) => {
   const shareUrl = encodeURIComponent("https://atomaaiexpertcontencreator.vercel.app/");
-  const shareText = encodeURIComponent("Diventa un Tecnico della Produzione Multimediale e AI Content Creation con questo corso GOL Gratuito di 100 ore! 🚀");
+  const shareText = encodeURIComponent(`Diventa un Tecnico della Produzione Multimediale e AI Content Creation con questo corso ${isPaid ? 'Privato' : 'GOL Gratuito'}! 🚀`);
   
   return (
-    <section className="py-20 md:py-32 bg-[#15191c] relative overflow-hidden">
+    <section className="py-20 md:py-32 relative overflow-hidden" style={{ backgroundColor: COLOR_BG }}>
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#d4ff00_1px,transparent_1px)] [background-size:40px_40px]" />
       </div>
@@ -497,11 +497,11 @@ const CTA = () => {
       <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
         <div className="flex flex-col items-center gap-6 md:gap-10">
           <p className="text-[#d4ff00] font-black tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-xs uppercase bg-[#d4ff00]/10 px-4 md:px-6 py-2 rounded-full">
-            Richiedi ora la verifica dei requisiti GOL
+            {isPaid ? "Non perdere questa opportunità professionale" : "Richiedi ora la verifica dei requisiti GOL"}
           </p>
           
           <motion.a 
-            href="https://api.leadconnectorhq.com/widget/form/6JTRXjB5riLah1CoOkWJ" 
+            href={isPaid ? "https://www.atoma.com/contatti/" : "https://api.leadconnectorhq.com/widget/form/6JTRXjB5riLah1CoOkWJ"} 
             target="_blank" 
             rel="noopener noreferrer"
             whileHover={{ 
@@ -513,10 +513,18 @@ const CTA = () => {
             whileTap={{ scale: 0.98 }}
             className="group relative inline-flex items-center gap-4 md:gap-6 bg-white text-black px-8 md:px-14 py-5 md:py-7 rounded-xl md:rounded-[2rem] font-black text-lg md:text-3xl transition-all shadow-2xl text-center"
           >
-            <span className="leading-tight">CONTATTACI PER MAGGIORI INFORMAZIONI</span>
+            <span className="leading-tight uppercase tracking-tighter italic">
+              {isPaid ? "RICHIEDI INFO ACQUISTO" : "RICHIEDI INFO CORSO GOL"}
+            </span>
             <ExternalLink className="w-5 h-5 md:w-8 md:h-8 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform shrink-0" />
           </motion.a>
 
+          {isPaid && (
+            <button onClick={onSwitch} className="text-white/40 text-xs font-bold uppercase tracking-widest hover:text-[#d4ff00] transition-colors">
+              SCOPRI SE PUOI ACCEDERE AL PROGRAMMA GOL GRATUITO
+            </button>
+          )}
+          
           {/* Social Social */}
           <div className="mt-8 flex flex-col items-center gap-4">
             <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Condividi questa opportunità</span>
@@ -598,30 +606,32 @@ const Footer = () => (
 // --- Main App ---
 
 export default function App() {
+  const [isPaid, setIsPaid] = React.useState(false);
+
   return (
-    <div className="min-h-screen bg-[#15191c] font-sans selection:bg-[#d4ff00] selection:text-black scroll-smooth">
-      <Navbar />
+    <div className="min-h-screen font-sans selection:bg-[#d4ff00] selection:text-black scroll-smooth" style={{ backgroundColor: COLOR_BG }}>
+      <Navbar isPaid={isPaid} onSwitch={() => setIsPaid(!isPaid)} />
       <main>
-        <Hero />
-        <InstitutionalLogos />
+        <Hero isPaid={isPaid} onSwitch={() => setIsPaid(!isPaid)} />
+        {!isPaid && <InstitutionalLogos />}
         
-        <section className="bg-[#1c2125] py-12 md:py-16 border-y border-white/5">
-          <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
+        <section className="py-12 md:py-16 border-y border-white/5" style={{ backgroundColor: 'rgba(28, 33, 37, 0.3)' }}>
+          <div className="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12 text-center md:text-left">
             {( [
-              { icon: Clock, title: "100 ORE", desc: "Formazione intensiva" },
+              { icon: Clock, title: isPaid ? "40 ORE" : "100 ORE", desc: "Formazione intensiva" },
               { icon: MapPin, title: "MODALITÀ FAD", desc: "Sincrona (Online)" },
-              { icon: Users, title: "GOL LOMBARDIA", desc: "Accesso gratuito" }
+              { icon: Users, title: isPaid ? "D'ELITE" : "GOL LOMBARDIA", desc: isPaid ? "Percorso Professionale" : "Accesso gratuito" }
             ] as KeyInfoItem[]).map((item, i) => (
               <motion.div 
                 key={i} 
                 whileHover={{ y: -5 }}
-                className="flex items-center gap-4 md:gap-6 p-5 md:p-6 rounded-2xl md:rounded-3xl bg-white/[0.02] border border-white/5"
+                className="flex flex-col md:flex-row items-center gap-4 md:gap-6 p-5 md:p-6 rounded-2xl md:rounded-3xl bg-white/[0.02] border border-white/5"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center text-[#d4ff00] shadow-inner">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-[#d4ff00]/5 flex items-center justify-center text-[#d4ff00] shadow-inner shrink-0">
                   <item.icon size={24} className="md:w-7 md:h-7" />
                 </div>
                 <div>
-                  <h4 className="text-white font-black tracking-tight text-base md:text-lg">{item.title}</h4>
+                  <h4 className="text-white font-[900] tracking-tight text-base md:text-lg uppercase">{item.title}</h4>
                   <p className="text-white/30 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-black">{item.desc}</p>
                 </div>
               </motion.div>
@@ -629,10 +639,10 @@ export default function App() {
           </div>
         </section>
 
-        <Program />
+        <Program isPaid={isPaid} />
         <Teacher />
         <Testimonials />
-        <CTA />
+        <CTA isPaid={isPaid} onSwitch={() => setIsPaid(!isPaid)} />
       </main>
       <Footer />
     </div>
