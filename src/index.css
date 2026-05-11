@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply antialiased overflow-x-hidden;
+    background-color: #1B292D; /* Use COLOR_BG value for consistent bg */
+  }
+}
+
+/* Custom scrollbar for better visual experience */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1B292D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2C4248;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E8327C;
+}
